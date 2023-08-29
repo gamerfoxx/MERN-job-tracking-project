@@ -75,6 +75,18 @@ app.patch('/api/v1/jobs/:id', (req, res) => {
 	res.status(200).json({ msg: 'job modified', job });
 });
 
+app.delete('/api/v1/jobs/:id', (req, res) => {
+	const { id } = req.params;
+	const job = jobs.find((job) => job.id === id);
+	if (!job) {
+		res.status(404).json({ msg: 'Please provide valid ID' });
+		return;
+	}
+	const newJobs = jobs.filter((job) => job.id !== id);
+	jobs = newJobs;
+	res.status(200).json({ msg: 'job deleted' });
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
