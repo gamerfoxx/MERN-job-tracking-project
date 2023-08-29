@@ -1,16 +1,17 @@
 import 'express-async-errors';
+import { StatusCodes } from 'http-status-codes';
 
 import JobModel from '../models/JobModel.js';
 
 export const getAllJobs = async (req, res) => {
 	//find can be used to find certain entries with a specific value based on the schema
 	const jobs = await JobModel.find({});
-	res.status(200).json({ jobs });
+	res.status(StatusCodes.OK).json({ jobs });
 };
 
 export const createJob = async (req, res) => {
 	const job = await JobModel.create(req.body);
-	res.status(201).json({ job });
+	res.status(StatusCodes.CREATED).json({ job });
 };
 
 export const getOneJob = async (req, res) => {
@@ -20,7 +21,7 @@ export const getOneJob = async (req, res) => {
 	if (!job) {
 		throw new Error('no job with that ID');
 	}
-	res.status(200).json({ job });
+	res.status(StatusCodes.OK).json({ job });
 };
 
 export const editJob = async (req, res) => {
@@ -34,7 +35,7 @@ export const editJob = async (req, res) => {
 		return;
 	}
 
-	res.status(200).json({ msg: 'job modified', job: updatedJob });
+	res.status(StatusCodes.OK).json({ msg: 'job modified', job: updatedJob });
 };
 
 export const deleteJob = async (req, res) => {
@@ -44,5 +45,5 @@ export const deleteJob = async (req, res) => {
 		res.status(404).json({ msg: 'Please provide valid ID' });
 		return;
 	}
-	res.status(200).json({ msg: 'job deleted', job: removedJob });
+	res.status(StatusCodes.OK).json({ msg: 'job deleted', job: removedJob });
 };
