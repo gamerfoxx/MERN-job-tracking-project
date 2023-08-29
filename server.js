@@ -51,8 +51,7 @@ app.get('/api/v1/jobs/:id', (req, res) => {
 	const { id } = req.params;
 	const job = jobs.find((job) => job.id === id);
 	if (!job) {
-		res.status(404).json({ msg: 'Please provide valid ID' });
-		return;
+		throw new Error('no job with that ID');
 	}
 	res.status(200).json({ job });
 });
@@ -93,7 +92,7 @@ app.use('*', (req, res) => {
 	res.status(404).json({ msg: 'Not found here' });
 });
 
-//error route. Will get get triggered if there is an error in the code
+//error route. Will get get triggered if there is an error in the code, or an error is thrown
 app.use((err, req, res, next) => {
 	console.log(err);
 	res.status(500).json({ msg: 'Something broke. Try again' });
