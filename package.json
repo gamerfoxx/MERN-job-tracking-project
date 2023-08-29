@@ -5,7 +5,9 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"setup-project": "npm i && cd front && npm i"
+		"setup-project": "npm i && cd front && npm i",
+		"dev": "nodemon server.js",
+		"watch": "node --watch server.js"
 	},
 	"keywords": [],
 	"author": "",
