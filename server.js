@@ -57,6 +57,24 @@ app.get('/api/v1/jobs/:id', (req, res) => {
 	res.status(200).json({ job });
 });
 
+//edit job
+app.patch('/api/v1/jobs/:id', (req, res) => {
+	const { company, position } = req.body;
+	if (!company || !position) {
+		res.status(400).json({ msg: 'Please provide valid company and position' });
+		return;
+	}
+	const { id } = req.params;
+	const job = jobs.find((job) => job.id === id);
+	if (!job) {
+		res.status(404).json({ msg: 'Please provide valid ID' });
+		return;
+	}
+	job.company = company;
+	job.position = position;
+	res.status(200).json({ msg: 'job modified', job });
+});
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
