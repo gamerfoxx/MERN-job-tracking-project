@@ -8,7 +8,6 @@ import jobRouter from './routes/jobRouter.js';
 
 //middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
-import { validateTest } from './middleware/validationMiddleware.js';
 
 dotenv.config();
 
@@ -22,11 +21,6 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
 	res.send('Hello world');
-});
-
-app.get('/api/v1/test', validateTest, (req, res) => {
-	const { name } = req.body;
-	res.json({ message: `Hello ${name}`, data: req.body });
 });
 
 app.use('/api/v1/jobs', jobRouter);
