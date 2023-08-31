@@ -7,6 +7,9 @@ import mongoose from 'mongoose';
 //routers
 import jobRouter from './routes/jobRouter.js';
 
+//middleware
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
+
 dotenv.config();
 
 const app = express();
@@ -34,10 +37,7 @@ app.use('*', (req, res) => {
 });
 
 //error route. Will get get triggered if there is an error in the code, or an error is thrown
-app.use((err, req, res, next) => {
-	console.log(err);
-	res.status(500).json({ msg: 'Something broke. Try again' });
-});
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
 
