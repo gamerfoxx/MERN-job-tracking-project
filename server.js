@@ -1,11 +1,13 @@
 import express from 'express';
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
-
 import mongoose from 'mongoose';
 
 //routers
 import jobRouter from './routes/jobRouter.js';
+
+//middleware
+import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 
 dotenv.config();
 
@@ -21,11 +23,6 @@ app.get('/', (req, res) => {
 	res.send('Hello world');
 });
 
-app.post('/', (req, res) => {
-	console.log(req);
-	res.json({ message: 'res received', data: req.body });
-});
-
 app.use('/api/v1/jobs', jobRouter);
 
 //Not found route. Will trigger if there is no existing resource
@@ -34,10 +31,7 @@ app.use('*', (req, res) => {
 });
 
 //error route. Will get get triggered if there is an error in the code, or an error is thrown
-app.use((err, req, res, next) => {
-	console.log(err);
-	res.status(500).json({ msg: 'Something broke. Try again' });
-});
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 5000;
 
