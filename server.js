@@ -15,7 +15,6 @@ const app = express();
 
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
-	console.log();
 }
 
 app.use(express.json());
