@@ -32,6 +32,7 @@ export const validateJobInput = withValidationErrors([
 		.withMessage('invalid status'),
 	body('jobType').isIn(Object.values(JOB_TYPE)).withMessage('invalid type'),
 ]);
+
 export const validateRegisterInput = withValidationErrors([
 	body('name').notEmpty().withMessage('name is required'),
 	body('email')
@@ -52,6 +53,15 @@ export const validateRegisterInput = withValidationErrors([
 		.withMessage('password must be at least 8 characters'),
 	body('lastName').notEmpty().withMessage('lastName is required'),
 	body('location').notEmpty().withMessage('location is required'),
+]);
+
+export const validateLoginInput = withValidationErrors([
+	body('email')
+		.notEmpty()
+		.withMessage('email is required')
+		.isEmail()
+		.withMessage('invlaid email format'),
+	body('password').notEmpty().withMessage('password is required'),
 ]);
 
 export const validateParams = withValidationErrors([
