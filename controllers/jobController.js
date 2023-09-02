@@ -5,11 +5,12 @@ import JobModel from '../models/JobModel.js';
 
 export const getAllJobs = async (req, res) => {
 	//find can be used to find certain entries with a specific value based on the schema
-	const jobs = await JobModel.find({});
+	const jobs = await JobModel.find({ createdBy: req.user.userId });
 	res.status(StatusCodes.OK).json({ jobs });
 };
 
 export const createJob = async (req, res) => {
+	req.body.createdBy = req.user.userId;
 	const job = await JobModel.create(req.body);
 	res.status(StatusCodes.CREATED).json({ job });
 };
