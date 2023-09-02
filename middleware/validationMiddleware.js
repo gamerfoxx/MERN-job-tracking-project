@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { BadRequestError, NotFoundError } from '../errors/customErrors.js';
 import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js';
 import JobModel from '../models/JobModel.js';
+import UserModel from '../models/UserModel.js';
 
 const withValidationErrors = (validateValues) => {
 	return [
@@ -30,6 +31,27 @@ export const validateJobInput = withValidationErrors([
 		.isIn(Object.values(JOB_STATUS))
 		.withMessage('invalid status'),
 	body('jobType').isIn(Object.values(JOB_TYPE)).withMessage('invalid type'),
+]);
+export const validateRegisterInput = withValidationErrors([
+	body('name').notEmpty().withMessage('name is required'),
+	body('email')
+		.notEmpty()
+		.withMessage('email is required')
+		.isEmail()
+		.withMessage('invlaid email format')
+		.custom(async (email) => {
+			const user = await UserModel.findOne({ email });
+			if (user) {
+				throw new BadRequestError('email already exists');
+			}
+		}),
+	body('password')
+		.notEmpty()
+		.withMessage('password is required')
+		.isLength({ min: 8 })
+		.withMessage('password must be at least 8 characters'),
+	body('lastName').notEmpty().withMessage('lastName is required'),
+	body('location').notEmpty().withMessage('location is required'),
 ]);
 
 export const validateParams = withValidationErrors([
