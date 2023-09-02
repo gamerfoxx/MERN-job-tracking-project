@@ -1,4 +1,6 @@
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
+import mongoose from 'mongoose';
+
 import { BadRequestError } from '../errors/customErrors.js';
 import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js';
 
@@ -26,10 +28,8 @@ export const validateJobInput = withValidationErrors([
 	body('jobType').isIn(Object.values(JOB_TYPE)).withMessage('invalid type'),
 ]);
 
-// export const validateTest = withValidationErrors([
-// 	body('name')
-// 		.notEmpty()
-// 		.withMessage('name is required')
-// 		.isLength({ min: 2, max: 50 })
-// 		.withMessage('name must be between 2, and 50 characters'),
-// ]);
+export const validateParams = withValidationErrors([
+	param('id')
+		.custom((value) => mongoose.Types.ObjectId.isValid(value))
+		.withMessage('invalid MongoDB id'),
+]);
