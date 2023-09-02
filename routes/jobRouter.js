@@ -13,10 +13,7 @@ import {
 	deleteJob,
 } from '../controllers/jobController.js';
 
-router
-	.route('/')
-	.get(validateParams, getAllJobs)
-	.post(validateJobInput, createJob);
+router.route('/').get(getAllJobs).post(validateJobInput, createJob);
 
 router
 	.route('/:id')
