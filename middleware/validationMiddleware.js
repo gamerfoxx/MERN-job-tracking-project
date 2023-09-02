@@ -86,3 +86,20 @@ export const validateParams = withValidationErrors([
 			throw new UnauthorizedError('not authorised to access this route');
 	}),
 ]);
+
+export const validateUpdateUserInput = withValidationErrors([
+	body('name').notEmpty().withMessage('name is required'),
+	body('email')
+		.notEmpty()
+		.withMessage('email is required')
+		.isEmail()
+		.withMessage('invlaid email format')
+		.custom(async (email, { req }) => {
+			const user = await UserModel.findOne({ email });
+			if (user && user._id.toString() !== req.user.userId) {
+				throw new BadRequestError('email already exists');
+			}
+		}),
+	body('lastName').notEmpty().withMessage('lastName is required'),
+	body('location').notEmpty().withMessage('location is required'),
+]);
