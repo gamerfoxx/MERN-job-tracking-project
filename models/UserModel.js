@@ -9,4 +9,11 @@ const UserSchema = new mongoose.Schema({
 	role: { type: String, enum: ['user', 'admin'], default: 'user' },
 });
 
+//used to remove the password when pulling in the user
+UserSchema.methods.toJson = function () {
+	let obj = this.toObject();
+	delete obj.password;
+	return obj;
+};
+
 export default mongoose.model('User', UserSchema);

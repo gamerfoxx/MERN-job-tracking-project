@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 //routers
 import jobRouter from './routes/jobRouter.js';
 import authRouter from './routes/authRouter.js';
+import userRouter from './routes/userRouter.js';
 
 //middleware
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/user', authenticateUser, userRouter);
 
 //Not found route. Will trigger if there is no existing resource
 app.use('*', (req, res) => {
