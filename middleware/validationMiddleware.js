@@ -1,7 +1,11 @@
 import { body, param, validationResult } from 'express-validator';
 import mongoose from 'mongoose';
 
-import { BadRequestError, NotFoundError } from '../errors/customErrors.js';
+import {
+	BadRequestError,
+	NotFoundError,
+	UnauthorizedError,
+} from '../errors/customErrors.js';
 import { JOB_STATUS, JOB_TYPE } from '../utils/constants.js';
 import JobModel from '../models/JobModel.js';
 import UserModel from '../models/UserModel.js';
@@ -15,6 +19,9 @@ const withValidationErrors = (validateValues) => {
 				const errorMessages = errors.array().map((error) => error.msg);
 				if (errorMessages[0].startsWith('no job')) {
 					throw new NotFoundError(errorMessages);
+				}
+				if (errorMessages[0].startsWith('not authorised')) {
+					throw new UnauthorizedError('not authorised to access this route');
 				}
 				throw new BadRequestError(errorMessages);
 			}
@@ -72,5 +79,10 @@ export const validateParams = withValidationErrors([
 		const job = await JobModel.findById(value);
 
 		if (!job) throw new NotFoundError(`No job with ID ${value}`);
+
+		const isAdmin = req.user.role === 'admin';
+		const isOwner = req.user.userId === job.createdBy.toString();
+		if (!isAdmin && !isOwner)
+			throw new UnauthorizedError('not authorised to access this route');
 	}),
 ]);
