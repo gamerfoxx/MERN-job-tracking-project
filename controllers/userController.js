@@ -4,9 +4,9 @@ import UserModel from '../models/UserModel.js';
 import JobModel from '../models/JobModel.js';
 
 export const getCurrentUser = async (req, res) => {
-	const user = await UserModel.findOne({ _id: req.user.userId });
-	const updatedUser = user.toJSON();
-	res.status(StatusCodes.OK).json({ updatedUser });
+	const passUser = await UserModel.findOne({ _id: req.user.userId });
+	const user = passUser.toJSON();
+	res.status(StatusCodes.OK).json({ user });
 };
 
 export const getApplicationStatus = async (req, res) => {

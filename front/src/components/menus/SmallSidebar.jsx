@@ -11,7 +11,7 @@ function SmallSidebar() {
 		<Wrapper>
 			<div
 				className={
-					showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'
+					!showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'
 				}>
 				<div className="content">
 					<button
