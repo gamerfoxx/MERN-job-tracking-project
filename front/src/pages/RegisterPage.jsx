@@ -17,6 +17,8 @@ export const action = async ({ request }) => {
 };
 
 const RegisterPage = () => {
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state === 'submitting';
 	return (
 		<Wrapper>
 			<Form
@@ -60,7 +62,11 @@ const RegisterPage = () => {
 					labelText="Re-enter Password"
 					defaultValue="password"
 				/>
-				<CustomButton type="submit" />
+				<CustomButton
+					type="submit"
+					disabled={isSubmitting}
+					label={isSubmitting ? 'Submitting...' : 'Submit'}
+				/>
 				<p>
 					Already a user?{' '}
 					<Link
