@@ -13,6 +13,7 @@ import {
 	AdminPage,
 } from './pages';
 //router used imported from npm i react-router-dom
+import { action as registerAction } from './pages/RegisterPage';
 
 export const checkDefaultTheme = () => {
 	const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
 			{
 				path: 'register',
 				element: <RegisterPage />,
+				action: registerAction,
 			},
 			{
 				path: 'login',
