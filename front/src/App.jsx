@@ -14,6 +14,8 @@ import {
 } from './pages';
 //router used imported from npm i react-router-dom
 import { action as registerAction } from './pages/RegisterPage';
+import { action as loginAction } from './pages/LoginPage';
+import { loader as dashboardLoader } from './pages/DashboardLayout';
 
 export const checkDefaultTheme = () => {
 	const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
@@ -41,10 +43,12 @@ const router = createBrowserRouter([
 			{
 				path: 'login',
 				element: <LoginPage />,
+				action: loginAction,
 			},
 			{
 				path: 'dashboard',
 				element: <DashboardLayout />,
+				loader: dashboardLoader,
 				children: [
 					{
 						index: true, //Used to show the default content for the layout
