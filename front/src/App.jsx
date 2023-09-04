@@ -11,6 +11,7 @@ import {
 	AllJobsPage,
 	ProfilePage,
 	AdminPage,
+	EditJobPage,
 } from './pages';
 //router used imported from npm i react-router-dom
 import { action as registerAction } from './pages/RegisterPage';
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
 					{
 						path: 'admin',
 						element: <AdminPage />,
+					},
+					{
+						path: 'edit-job/:id',
+						element: <EditJobPage />,
 					},
 				],
 			},
