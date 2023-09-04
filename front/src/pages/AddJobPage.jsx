@@ -6,7 +6,7 @@ import { Form, useNavigation, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';
 import { CustomButton } from '../components';
-import FormRowSelect from '../components/FormRowSelection';
+import FormRowSelect from '../components/FormRowSelect';
 
 export const action = async ({ request }) => {
 	const formData = await request.formData();
