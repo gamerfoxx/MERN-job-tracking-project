@@ -67,7 +67,7 @@ export const showStats = async (req, res) => {
 		{ $limit: 6 },
 	]);
 
-	monthlyApps
+	monthlyApps = monthlyApps
 		.map((item) => {
 			const {
 				_id: { year, month },
@@ -77,6 +77,7 @@ export const showStats = async (req, res) => {
 				.month(month - 1)
 				.year(year)
 				.format('MMM YY');
+			console.log(date);
 			return { date, count };
 		})
 		.reverse();
