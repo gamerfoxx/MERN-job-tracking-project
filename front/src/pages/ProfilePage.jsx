@@ -9,7 +9,7 @@ import { CustomButton } from '../components';
 export const action = async ({ request }) => {
 	const formData = await request.formData();
 	const file = formData.get('avatar');
-	if (file && file.size > 5000) {
+	if (file && file.size > 50000) {
 		toast.error('File too large');
 		return null;
 	}

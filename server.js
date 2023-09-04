@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+dotenv.config();
 
 //routers
 import jobRouter from './routes/jobRouter.js';
@@ -19,9 +20,15 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+//coudinary
+import cloudinary from 'cloudinary';
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_KEY,
+	api_secret: process.env.CLOUDINARY_SECRET,
+});
 
-dotenv.config();
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
