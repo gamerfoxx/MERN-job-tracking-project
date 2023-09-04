@@ -1,8 +1,10 @@
 import express from 'express';
+const app = express();
 import morgan from 'morgan';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+dotenv.config();
 
 //routers
 import jobRouter from './routes/jobRouter.js';
@@ -13,13 +15,26 @@ import userRouter from './routes/userRouter.js';
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
 import { authenticateUser } from './middleware/authMiddleware.js';
 
-dotenv.config();
+//public
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-const app = express();
+//coudinary
+import cloudinary from 'cloudinary';
+cloudinary.config({
+	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_KEY,
+	api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
+
+app.use(express.static(path.resolve(__dirname, './public')));
 
 app.use(cookieParser());
 app.use(express.json());

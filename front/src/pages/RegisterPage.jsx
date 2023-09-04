@@ -1,8 +1,9 @@
-import { Form, redirect, useNavigation, Link } from 'react-router-dom';
+import { Form, redirect, Link } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
-import { Logo, FormRow, CustomButton } from '../components';
+import { Logo, FormRow } from '../components';
 import customFetch from '../utils/customFetch.js';
 import { toast } from 'react-toastify';
+import SubmitButton from '../components/SubmitButton';
 
 export const action = async ({ request }) => {
 	const formData = await request.formData();
@@ -20,8 +21,6 @@ export const action = async ({ request }) => {
 };
 
 const RegisterPage = () => {
-	const navigation = useNavigation();
-	const isSubmitting = navigation.state === 'submitting';
 	return (
 		<Wrapper>
 			<Form
@@ -65,11 +64,7 @@ const RegisterPage = () => {
 					labelText="Re-enter Password"
 					defaultValue="password"
 				/>
-				<CustomButton
-					type="submit"
-					disabled={isSubmitting}
-					label={isSubmitting ? 'Submitting...' : 'Submit'}
-				/>
+				<SubmitButton formBtn={true} />
 				<p>
 					Already a user?{' '}
 					<Link

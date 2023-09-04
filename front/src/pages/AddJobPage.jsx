@@ -2,11 +2,11 @@ import FormRow from '../components/FormRow';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { useOutletContext } from 'react-router-dom';
 import { JOB_STATUS, JOB_TYPE } from '../../../utils/constants';
-import { Form, useNavigation, redirect } from 'react-router-dom';
+import { Form, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';
-import { CustomButton } from '../components';
 import FormRowSelect from '../components/FormRowSelect';
+import SubmitButton from '../components/SubmitButton';
 
 export const action = async ({ request }) => {
 	const formData = await request.formData();
@@ -25,8 +25,6 @@ export const action = async ({ request }) => {
 
 const AddJobPage = () => {
 	const { user } = useOutletContext();
-	const navigation = useNavigation();
-	const isSubmitting = navigation.state === 'submitting';
 	return (
 		<Wrapper>
 			<Form
@@ -60,12 +58,7 @@ const AddJobPage = () => {
 						list={Object.values(JOB_TYPE)}
 						defaultValue={JOB_TYPE.FULL_TIME}
 					/>
-					<CustomButton
-						type="submit"
-						classes="form-btn"
-						disabled={isSubmitting}
-						label={isSubmitting ? 'is submitting' : 'submit'}
-					/>
+					<SubmitButton formBtn={true} />
 				</div>
 			</Form>
 		</Wrapper>

@@ -23,14 +23,14 @@ const AdminPage = () => {
 			<StatItem
 				title="Current users"
 				count={users}
-				color="red"
+				color="white"
 				bcg="blue"
 				icon={<FaSuitcaseRolling />}
 			/>
 			<StatItem
 				title="total jobs"
 				count={jobs}
-				color="red"
+				color="white"
 				bcg="blue"
 				icon={<FaCalendarCheck />}
 			/>
