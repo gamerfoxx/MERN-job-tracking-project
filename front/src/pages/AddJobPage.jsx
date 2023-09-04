@@ -8,6 +8,21 @@ import customFetch from '../utils/customFetch';
 import { CustomButton } from '../components';
 import FormRowSelect from '../components/FormRowSelection';
 
+export const action = async ({ request }) => {
+	const formData = await request.formData();
+	const data = Object.fromEntries(formData);
+
+	try {
+		await customFetch.post('/jobs', data);
+		toast.success('Job Successfully Created');
+		return redirect('all-jobs');
+	} catch (err) {
+		toast.error(err?.response?.data?.msg);
+		console.log(err?.response?.data?.msg);
+		return err;
+	}
+};
+
 const AddJobPage = () => {
 	const { user } = useOutletContext();
 	const navigation = useNavigation();
@@ -30,7 +45,7 @@ const AddJobPage = () => {
 					<FormRow
 						type="text"
 						label="job location"
-						name="location"
+						name="jobLocation"
 						default={user.location}
 					/>
 					<FormRowSelect

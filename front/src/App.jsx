@@ -15,6 +15,7 @@ import {
 //router used imported from npm i react-router-dom
 import { action as registerAction } from './pages/RegisterPage';
 import { action as loginAction } from './pages/LoginPage';
+import { action as addJobAction } from './pages/AddJobPage';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
 
 export const checkDefaultTheme = () => {
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
 					{
 						index: true, //Used to show the default content for the layout
 						element: <AddJobPage />,
+						action: addJobAction,
 					},
 					{
 						path: 'stats',
