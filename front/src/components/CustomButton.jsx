@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-function CustomButton({ type, label, disabled }) {
+function CustomButton({ type, label, disabled, classes }) {
 	return (
 		<button
 			type={type}
-			className="btn btn-block"
+			className={classes ? 'btn btn-block ' + classes : 'btn btn-block'}
 			disabled={disabled}>
 			{label || type}
 		</button>

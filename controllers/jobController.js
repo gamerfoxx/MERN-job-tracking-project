@@ -16,6 +16,7 @@ export const createJob = async (req, res) => {
 };
 
 export const getOneJob = async (req, res) => {
+	console.log(req);
 	const job = await JobModel.findById(req.params.id);
 
 	res.status(StatusCodes.OK).json({ job });

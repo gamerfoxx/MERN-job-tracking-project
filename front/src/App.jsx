@@ -11,11 +11,17 @@ import {
 	AllJobsPage,
 	ProfilePage,
 	AdminPage,
+	EditJobPage,
 } from './pages';
 //router used imported from npm i react-router-dom
 import { action as registerAction } from './pages/RegisterPage';
 import { action as loginAction } from './pages/LoginPage';
+import { action as addJobAction } from './pages/AddJobPage';
+import { action as editJobAction } from './pages/EditJobPage';
+import { action as deleteJobAction } from './pages/DeleteJobPage';
+import { loader as editJobLoader } from './pages/EditJobPage';
 import { loader as dashboardLoader } from './pages/DashboardLayout';
+import { loader as allJobsLoader } from './pages/AllJobsPage';
 
 export const checkDefaultTheme = () => {
 	const isDarkTheme = localStorage.getItem('darkTheme') === 'true';
@@ -53,6 +59,7 @@ const router = createBrowserRouter([
 					{
 						index: true, //Used to show the default content for the layout
 						element: <AddJobPage />,
+						action: addJobAction,
 					},
 					{
 						path: 'stats',
@@ -61,6 +68,7 @@ const router = createBrowserRouter([
 					{
 						path: 'all-jobs',
 						element: <AllJobsPage />,
+						loader: allJobsLoader,
 					},
 					{
 						path: 'profile',
@@ -69,6 +77,16 @@ const router = createBrowserRouter([
 					{
 						path: 'admin',
 						element: <AdminPage />,
+					},
+					{
+						path: 'edit-job/:id',
+						element: <EditJobPage />,
+						action: editJobAction,
+						loader: editJobLoader,
+					},
+					{
+						path: 'delete-job/:id',
+						action: deleteJobAction,
 					},
 				],
 			},

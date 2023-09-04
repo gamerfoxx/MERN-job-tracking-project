@@ -72,7 +72,7 @@ export const validateLoginInput = withValidationErrors([
 ]);
 
 export const validateParams = withValidationErrors([
-	param('id').custom(async (value) => {
+	param('id').custom(async (value, { req }) => {
 		const isValidId = mongoose.Types.ObjectId.isValid(value);
 		if (!isValidId) throw new BadRequestError('invalid MongoDB id');
 
