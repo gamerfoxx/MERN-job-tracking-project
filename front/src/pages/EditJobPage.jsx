@@ -6,6 +6,7 @@ import { JOB_STATUS, JOB_TYPE } from '../../../utils/constants';
 import { Form, useNavigation, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import customFetch from '../utils/customFetch';
+import { CustomButton } from '../components';
 
 export const loader = async ({ params }) => {
 	try {
@@ -72,12 +73,12 @@ const EditJobPage = () => {
 						defaultValue={job.jobType}
 						list={Object.values(JOB_TYPE)}
 					/>
-					<button
+					<CustomButton
 						type="submit"
-						className="btn btn-block form-btn "
-						disabled={isSubmitting}>
-						{isSubmitting ? 'submitting...' : 'submit'}
-					</button>
+						classes="form-btn "
+						disabled={isSubmitting}
+						label={isSubmitting ? 'submitting...' : 'submit'}
+					/>
 				</div>
 			</Form>
 		</Wrapper>

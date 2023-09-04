@@ -17,15 +17,6 @@ const Job = ({
 	createdAt,
 	jobStatus,
 }) => {
-	console.log(
-		_id,
-		position,
-		company,
-		jobLocation,
-		jobType,
-		createdAt,
-		jobStatus
-	);
 	const date = day(createdAt).format('MMM dd, YYYY ');
 	return (
 		<Wrapper>
@@ -57,7 +48,9 @@ const Job = ({
 							className="btn edit-btn">
 							Edit
 						</Link>
-						<Form>
+						<Form
+							method="post"
+							action={`../delete-job/${_id}`}>
 							<CustomButton
 								type="submit"
 								classes="delete-btn"
