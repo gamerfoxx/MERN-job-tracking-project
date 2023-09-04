@@ -18,7 +18,6 @@ export const createJob = async (req, res) => {
 };
 
 export const getOneJob = async (req, res) => {
-	console.log(req);
 	const job = await JobModel.findById(req.params.id);
 
 	res.status(StatusCodes.OK).json({ job });
@@ -77,7 +76,6 @@ export const showStats = async (req, res) => {
 				.month(month - 1)
 				.year(year)
 				.format('MMM YY');
-			console.log(date);
 			return { date, count };
 		})
 		.reverse();

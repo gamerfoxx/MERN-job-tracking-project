@@ -10,7 +10,6 @@ import { toast } from 'react-toastify';
 export const loader = async () => {
 	try {
 		const { data } = await customFetch.get('/user/currentuser');
-		console.log(data);
 		return data;
 	} catch (err) {
 		console.log(err);
@@ -35,7 +34,6 @@ const DashboardLayout = () => {
 	}
 
 	function toggleSidebar() {
-		console.log(!showSidebar);
 		setShowSidebar(!showSidebar);
 	}
 
