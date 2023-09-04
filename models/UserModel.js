@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
 	lastName: { type: String, default: 'lastName' },
 	location: { type: String, default: 'location' },
 	role: { type: String, enum: ['user', 'admin'], default: 'user' },
+	avatar: String,
+	avatarPublicId: String,
 });
 
 //used to remove the password when pulling in the user
