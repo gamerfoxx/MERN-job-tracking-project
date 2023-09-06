@@ -6,8 +6,33 @@ import day from 'dayjs';
 import JobModel from '../models/JobModel.js';
 
 export const getAllJobs = async (req, res) => {
+	const { search, jobStatus, jobType } = req.query;
+	const queryObj = {
+		createdBy: req.user.userId,
+	};
+	if (search) {
+		queryObj.$or = [
+			{ position: { $regex: search, $options: 'i' } },
+			{ company: { $regex: search, $options: 'i' } },
+		];
+	}
+	if (jobStatus && jobStatus !== 'all') {
+		queryObj.jobStatus = jobStatus;
+	}
+	if (jobType && jobType !== 'all') {
+		queryObj.jobType = jobType;
+	}
+
+	const sortOptions = {
+		newest: '-createdAt',
+		oldest: 'createdAt',
+		'a-z': 'position',
+		'z-a': '-position',
+	};
+
+	const sortKey = sortOptions[sort] || sortOptions.newest;
 	//find can be used to find certain entries with a specific value based on the schema
-	const jobs = await JobModel.find({ createdBy: req.user.userId });
+	const jobs = await JobModel.find(queryObj).sort(sortKey);
 	res.status(StatusCodes.OK).json({ jobs });
 };
 
