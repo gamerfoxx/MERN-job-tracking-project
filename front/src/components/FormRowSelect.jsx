@@ -1,6 +1,12 @@
 /* eslint-disable react/prop-types */
 
-const FormRowSelect = ({ name, labelText, list, defaultValue = '' }) => {
+const FormRowSelect = ({
+	name,
+	labelText,
+	list,
+	onChange,
+	defaultValue = '',
+}) => {
 	return (
 		<div className="form-row">
 			<label
@@ -12,7 +18,8 @@ const FormRowSelect = ({ name, labelText, list, defaultValue = '' }) => {
 				id={name}
 				name={name}
 				className="form-input"
-				defaultValue={defaultValue}>
+				defaultValue={defaultValue}
+				onChange={onChange}>
 				{list.map((item) => {
 					return (
 						<option
