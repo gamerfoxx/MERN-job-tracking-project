@@ -44,13 +44,11 @@ const LoginPage = () => {
 					type="email"
 					name="email"
 					labelText="Email"
-					defaultValue="test@test.com"
 				/>
 				<FormRow
 					type="password"
 					name="password"
 					labelText="password"
-					defaultValue="password"
 				/>
 				<SubmitButton formBtn={true} />
 				<CustomButton

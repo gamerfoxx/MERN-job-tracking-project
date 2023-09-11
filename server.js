@@ -50,6 +50,10 @@ app.use('/api/v1/jobs', authenticateUser, jobRouter);
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', authenticateUser, userRouter);
 
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve(__dirname, './public', 'index.html'));
+});
+
 //Not found route. Will trigger if there is no existing resource
 app.use('*', (req, res) => {
 	res.status(404).json({ msg: 'Not found here' });
