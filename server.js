@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
 
-app.use(express.static(path.resolve(__dirname, './public')));
+app.use(express.static(path.resolve(__dirname, './front/dist')));
 
 app.use(cookieParser());
 app.use(express.json());
@@ -47,7 +47,7 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/user', authenticateUser, userRouter);
 
 app.get('*', (req, res) => {
-	res.sendFile(path.resolve(__dirname, './public', 'index.html'));
+	res.sendFile(path.resolve(__dirname, './front/dist', 'index.html'));
 });
 
 //Not found route. Will trigger if there is no existing resource
