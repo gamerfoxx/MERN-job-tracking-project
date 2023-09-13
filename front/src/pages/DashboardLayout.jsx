@@ -1,10 +1,17 @@
-import { Outlet, redirect, useLoaderData, useNavigate } from 'react-router-dom';
+import {
+	Outlet,
+	redirect,
+	useLoaderData,
+	useNavigate,
+	useNavigation,
+} from 'react-router-dom';
 import Wrapper from '../assets/wrappers/Dashboard';
 import { createContext, useContext, useState } from 'react';
 
 import { checkDefaultTheme } from '../App';
 import customFetch from '../utils/customFetch';
 import { BigSidebar, Navbar, SmallSidebar } from '../components/menus';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { toast } from 'react-toastify';
 
 export const loader = async () => {
@@ -22,6 +29,8 @@ const DashboardContext = createContext();
 const DashboardLayout = () => {
 	const { user } = useLoaderData();
 	const navigate = useNavigate();
+	const navigation = useNavigation();
+	const isLoading = navigation.state === 'loading';
 
 	const [showSidebar, setShowSidebar] = useState(true);
 	const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
